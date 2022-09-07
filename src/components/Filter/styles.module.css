@@ -10,7 +10,7 @@
   }
 
   .carousel {
-    @apply w-full flex gap-4 pb-6 font-inter font-normal overflow-x-auto;
+    @apply w-full flex gap-4 pb-6 font-inter font-normal overflow-x-auto scroll-smooth;
   }
 
   .carousel::-webkit-scrollbar {
