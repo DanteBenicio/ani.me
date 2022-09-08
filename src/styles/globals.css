@@ -10,7 +10,6 @@
 
 @layer components {
   #__next {
-    @apply bg-dark-300 min-h-screen px-8;
+    @apply bg-dark-300 min-h-screen px-8 scroll-smooth;
   }
-
 }
