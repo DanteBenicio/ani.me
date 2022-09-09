@@ -1,0 +1,10 @@
+@tailwind components;
+
+@layer components {
+  .text-information {
+    @apply font-inter text-base text-gray;
+  }
+  .text-information span {
+    @apply font-rubik text-lg font-medium text-white-900;
+  }
+}
