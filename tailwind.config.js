@@ -2,8 +2,11 @@
 module.exports = {
   content: ['./src/**/*.tsx'],
   darkMode: 'class',
-  theme: {
+  theme: {   
     extend: {
+      screens: {
+        smx: '460px'
+      },
       fontFamily: {
         rubik: ['Rubik', 'sans-serif'],
         inter: ['Inter', 'sans-serif']
