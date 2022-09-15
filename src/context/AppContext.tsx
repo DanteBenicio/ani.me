@@ -1,16 +1,18 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useRef, useState } from "react";
 import { api } from "../services/axios";
 
 interface ContextProps {
   recentAnimes: AnimeData[]
-  setRecentAnimes: React.Dispatch<React.SetStateAction<AnimeData[]>>
   animes: AnimeData[]
+  trendingAnimes: AnimeData[]
+  setRecentAnimes: React.Dispatch<React.SetStateAction<AnimeData[]>>
   setAnimes: React.Dispatch<React.SetStateAction<AnimeData[]>>
 }
 
 const initialValue = {
   recentAnimes: [],
   animes: [],
+  trendingAnimes: [],
   setAnimes: () => {},
   setRecentAnimes: () => {},
 }
@@ -20,17 +22,28 @@ export const AppContext = createContext<ContextProps>(initialValue)
 export function AppContextProvider({ children }: { children: React.ReactNode }) {
   const [recentAnimes, setRecentAnimes] = useState<AnimeData[]>([])
   const [animes, setAnimes] = useState<AnimeData[]>([])
+  const [trendingAnimes, setTrendingAnimes] = useState<AnimeData[]>([])
+
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get('/anime')
+      const { data: animesData } = await api.get('/anime')
+      const { data: trendingAnimesData } = await api.get('/trending/anime')
 
-      setAnimes(data.data)
+      setAnimes(animesData.data)
+      setTrendingAnimes(trendingAnimesData.data.filter((_:unknown, index: number) => index < 4))
     })()
   }, [])
 
+
   return (
-    <AppContext.Provider value={{ animes, setAnimes, recentAnimes, setRecentAnimes }}>
+    <AppContext.Provider value={{ 
+      animes, 
+      recentAnimes, 
+      trendingAnimes, 
+      setRecentAnimes, 
+      setAnimes, 
+    }}>
       {children}
     </AppContext.Provider>
   )
