@@ -1,11 +1,17 @@
 @tailwind components;
+@tailwind utilities;
 
 @layer components {
   .li {
-    @apply px-4 py-2 text-white-900 rounded-lg cursor-pointer hover:bg-white-100 active:brightness-90 transition-colors;
+    @apply px-4 py-2 text-white-900 rounded-lg cursor-pointer hover:bg-white-100 active:brightness-90 transition-colors whitespace-nowrap;
+    font-size: clamp(0.8rem, 5vw, 1rem);
   }
 
-  .search-input {
-    @apply ml-8 text-white-900 font-inter rounded-2xl py-[6px] px-4 bg-dark-200 border-2 border-transparent outline-none focus:brightness-110 focus:border-blue transition-colors;
+  .search_input {
+    @apply hidden md:block text-white-900 font-inter rounded-[37px] py-[6px] w-full max-w-[288px] px-4 bg-dark-200 border-2 border-transparent outline-none focus:brightness-110 focus:border-blue transition-colors;
+  }
+
+  .search_input.mb {
+    @apply block text-white-900 font-inter rounded-lg py-[6px] w-full max-w-full px-4 bg-dark-200 border-2 border-transparent outline-none focus:brightness-110 focus:border-blue transition-colors;
   }
 }
