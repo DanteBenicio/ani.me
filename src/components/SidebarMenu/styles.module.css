@@ -1,0 +1,63 @@
+@tailwind components;
+@tailwind utilities;
+
+@keyframes showSidebarMenu {
+  from {
+    left: 100%;
+  }
+
+  to {
+    left: 40%;
+  }
+}
+
+@keyframes pulseLine {
+  0% {
+    height: 100%;
+    transform: scaleY(0.1);
+    transform-origin: center;
+    background-color: white;
+  }
+
+  100% {
+    height: 100%;
+    transform: scaleY(0.8);
+    transform-origin: center;
+    background-color: #00A3FF;
+  }
+}
+
+@layer components {
+  .sidebar {
+    @apply relative w-3/5 bg-dark-200 min-h-screen text-white-900 top-0;
+  }
+
+  .sidebar.active {
+    @apply relative w-3/5 top-0 min-h-screen text-white-900;
+    animation: showSidebarMenu 0.3s forwards;
+  }
+
+  .sidebar_container {
+    @apply fixed top-0 left-0 max-w-[100vw] w-full min-h-screen z-50 md:hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .li {
+    @apply relative p-4 text-start w-full cursor-pointer hover:backdrop-brightness-150 hover:text-blue duration-300;
+  }
+  
+}
+
+.li:focus::before,
+.li:hover::before,
+.li:active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 16px;
+  width: 2px;
+  
+  background-color: white;
+  animation: pulseLine 0.9s linear infinite alternate;
+}
