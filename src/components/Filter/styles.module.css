@@ -2,15 +2,15 @@
 
 @layer components {
   .button {
-    @apply block bg-transparent text-gray outline-none sm:min-w-[108px] min-w-[66px] rounded-[37px] border-dark-200 border-2 hover:text-white-900 hover:border-blue hover:bg-white-100 focus:border-blue transition-colors;
+    @apply relative block bg-transparent text-gray outline-none sm:min-w-[108px] min-w-[66px] rounded-[37px] border-dark-200 border-2 hover:text-white-900 hover:border-blue hover:bg-white-100 focus:border-blue transition-colors;
   }
 
   .button.active {
-    @apply bg-dark-200 text-white-900;
+    @apply bg-dark-200 text-white-900 border-blue;
   }
 
   .carousel {
-    @apply w-full flex gap-4 pb-6 font-inter font-normal overflow-x-auto scroll-smooth;
+    @apply relative w-full flex gap-4 pb-6 font-inter font-normal overflow-x-auto scroll-smooth;
   }
 
   .carousel::-webkit-scrollbar {

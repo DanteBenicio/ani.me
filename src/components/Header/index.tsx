@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '../../assets/SearchIcon'
-import { api } from '../../services/axios'
+import { localApi } from '../../services/axios'
 import Burger from '../Burger'
 import SearchAnimeCard from '../SearchAnimeCard'
 import styles from './styles.module.css'
@@ -16,6 +16,10 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
   const [searchAnimeInput, setSearchAnimeInput] = useState('')
   const [findedAnimes, setFindedAnimes] = useState<AnimeData[]>()
 
+  if (!searchAnimeInput && findedAnimes?.length) {
+    setFindedAnimes([])
+  }
+
   const handleToggleSearch = () => setShowSearchInput(prevState => !prevState)
 
   useEffect(() => {
@@ -24,10 +28,14 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
 
       (async () => {
         try {
-          const { data } = await api.get(`/anime?page[limit]=5&filter[text]=${animeName}`)
+          const { data } = await localApi.get('/getAnimes', {
+            params: {
+              animeName,
+              limit: 5
+            }
+          })
     
-          console.log(data.data)
-          setFindedAnimes(data.data)
+          setFindedAnimes(data)
         } catch (error) {
           console.error(error)
         }
@@ -58,7 +66,47 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
             <li className={styles.li}>Novos Episódios</li>
           </ul>
 
-          <input type="text" placeholder='Buscar' className={styles.search_input}/>
+          <div className="hidden md:block relative w-full max-w-[288px]">
+            <div className="relative">
+              <input 
+                type="text" 
+                placeholder='Buscar' 
+                className={styles.search_input}
+                value={searchAnimeInput}
+                onChange={e => setSearchAnimeInput(e.target.value)}
+              />
+
+              {searchAnimeInput && (
+                <div className="absolute right-4 top-[20%] smx:top-[15%] rounded-full bg-white-100 p-1 group" onClick={clearSearchAnime}>
+                  <button className="relative flex flex-col items-center justify-center gap-2 w-4 h-4 smx:w-5 smx:h-5 p-1">
+                    <span className="absolute h-[1px] w-full top-[45%] rotate-45 bg-gray group-hover:bg-white-900 duration-300" />
+                    <span className="absolute h-[1px] w-full bottom-[50%] bg-gray group-hover:bg-white-900 rotate-[135deg] duration-300" />
+                  </button>
+                </div>
+              )}
+
+              {searchAnimeInput && (
+                <div className='flex flex-col absolute z-50 mt-2 w-[400px] right-0 gap-2 bg-dark-300 shadow-2xl'>
+                  {findedAnimes?.map(anime => (
+                    <SearchAnimeCard
+                      desktop
+                      createdAt={anime?.attributes?.startDate}
+                      imgSrc={anime?.attributes?.posterImage?.small}
+                      score={anime?.attributes?.averageRating}
+                      title={anime?.attributes?.canonicalTitle}
+                      synopsis={anime?.attributes?.synopsis}
+                      genre={anime?.attributes?.ageRatingGuide}
+                      onClick={() => {
+                        setShowSearchInput(false);
+                        clearSearchAnime()
+                      }}
+                      key={anime?.id}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
 
           <div onClick={handleToggleSearch} className={`md:hidden py-2 px-[6px] cursor-pointer hover:backdrop-brightness-200 transition-colors rounded-lg group ${showSearchInput ? 'backdrop-brightness-200' : ''}`}>
             {showSearchInput ? (
@@ -71,12 +119,13 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
             )}
           </div>
           
-          <div className="md:hidden" >
+          <div className="md:hidden">
             <Burger showSidebarMenu={showSidebarMenu} handleToggleMenu={handleToggleMenu}/>
           </div>
         </nav>
       </div>
 
+      {/* Mobile */}
       {showSearchInput && (
         <div className="md:hidden relative w-full text-white-900 mt-3">
           <div className="relative">
@@ -107,14 +156,19 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
                 score={anime?.attributes?.averageRating}
                 title={anime?.attributes?.canonicalTitle}
                 synopsis={anime?.attributes?.synopsis}
-                onClick={clearSearchAnime}
+                genre={anime?.attributes?.ageRatingGuide}
+                onClick={() => {
+                  setShowSearchInput(false);
+                  clearSearchAnime()
+                }}
                 key={anime?.id}
               />
             ))}
             
             {searchAnimeInput && findedAnimes?.length === 0 && (
-              <div className='w-full bg-slate-800 text-white-900'>
-                <p>Anime não encontrado!!!</p>
+              <div className='flex justify-center items-center flex-col w-full bg-slate-800 text-white-900 rounded-lg p-4'>
+                <img src="/not-found.svg" alt="" className="max-w-[250px]" />
+                <h3 className='text-[1.2rem] smx:text-[1.4rem] sm:text-[1.8rem]'>Anime não encontrado.</h3>
               </div>
             )}
           </div>
