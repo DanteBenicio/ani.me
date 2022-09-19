@@ -5,7 +5,9 @@ module.exports = {
   theme: {   
     extend: {
       screens: {
-        smx: '460px'
+        smx: '460px',
+        mb: '380px',
+        md: '769px'
       },
       fontFamily: {
         rubik: ['Rubik', 'sans-serif'],
