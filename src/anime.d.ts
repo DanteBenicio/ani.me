@@ -1,6 +1,7 @@
 interface AnimeData {
   attributes: {
     ageRatingGuide: string
+    averageRating: string
     canonicalTitle: string
     coverImage: {
       large: string
