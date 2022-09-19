@@ -29,7 +29,7 @@ export default function Anime({ relatedAnimes }: AnimeProps) {
           }
         })
 
-        const animeAlreadyExists = recentAnimes.some(recentAnime => recentAnime.attributes?.canonicalTitle === animeName)
+        const animeAlreadyExists = recentAnimes.some(recentAnime => recentAnime.attributes?.canonicalTitle === data[0]?.attributes?.canonicalTitle)
 
         if (animeAlreadyExists) {
           setAnime(data[0])
