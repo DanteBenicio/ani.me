@@ -80,7 +80,7 @@ export default function HeroSection() {
       <div className="w-full mt-12">
         <h2 className='text-white-900 text-[1.4rem] smx:text-[1.5rem] sm:text-[2rem] font-rubik'>Últimas atualizações</h2>
 
-        <div className='grid grid-cols-1 place-items-center mb:grid-cols-2 smx:flex smx:flex-wrap gap-6 mt-5 smx:mt-10'>
+        <div className='grid grid-cols-1 place-items-center mb:grid-cols-2 smx:flex smx:flex-wrap items-stretch gap-6 mt-5 smx:mt-10'>
           {animes?.map(anime => (
             <Card key={anime.id} imgSrc={anime.attributes?.posterImage.small} title={anime.attributes?.canonicalTitle}/>
           ))}
@@ -92,7 +92,7 @@ export default function HeroSection() {
       <div className="mt-10">
         <h2 className="font-rubik text-[1.4rem] smx:text-[1.5rem] md:text-[2rem] text-white-900">Animes recentes</h2>
 
-        <div className="grid grid-cols-1 place-items-center mb:grid-cols-2 smx:flex smx:flex-wrap gap-6 mt-10">
+        <div className="grid grid-cols-1 place-items-center mb:grid-cols-2 smx:flex smx:flex-wrap gap-6 items-stretch mt-10">
           {recentAnimes.map(recentAnime => (
             <Card 
               key={recentAnime?.id}
