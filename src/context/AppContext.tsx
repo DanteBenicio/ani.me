@@ -26,8 +26,8 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     (async () => {
-      const { data: animesData } = await localApi.get('/getAnimes')
-      const { data: trendingAnimesData } = await localApi.get('/getTrendingAnimes')
+      const { data: animesData } = await localApi.get('api/getAnimes')
+      const { data: trendingAnimesData } = await localApi.get('api/getTrendingAnimes')
 
       setAnimes(animesData)
       setTrendingAnimes(trendingAnimesData.filter((_:unknown, index: number) => index < 4))

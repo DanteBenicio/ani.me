@@ -14,7 +14,7 @@ export default function HeroSection() {
   useEffect(() => {
     if (selectedFilter !== 'all') {
       (async () => {
-        const { data } = await localApi.get('/getAnimes', {
+        const { data } = await localApi.get('api/getAnimes', {
           params: {
             animeName: selectedFilter
           }
@@ -25,7 +25,7 @@ export default function HeroSection() {
       })()
     } else {
       (async () => {
-        const { data } = await localApi.get('/getAnimes', {
+        const { data } = await localApi.get('api/getAnimes', {
           params: {
             animeName: selectedFilter
           }
@@ -40,7 +40,7 @@ export default function HeroSection() {
   async function handleShowMoreAnimes(filterText: string) {
     const filter = filterText === 'all' ? '' : `&filter[text]=${filterText}`
 
-    const { data } = await localApi.get('/getMoreAnimes', {
+    const { data } = await localApi.get('api/getMoreAnimes', {
       params: {
         animesCount,
         filter

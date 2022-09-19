@@ -28,7 +28,7 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
 
       (async () => {
         try {
-          const { data } = await localApi.get('/getAnimes', {
+          const { data } = await localApi.get('api/getAnimes', {
             params: {
               animeName,
               limit: 5

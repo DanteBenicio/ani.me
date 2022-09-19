@@ -23,7 +23,7 @@ export default function Anime({ relatedAnimes }: AnimeProps) {
   useEffect(() => {
     (async () => {
       if (!anime || animeName !== anime?.attributes?.canonicalTitle) {
-        const { data } = await localApi.get('/getAnime', {
+        const { data } = await localApi.get('api/getAnime', {
           params: {
             animeName,
           }
@@ -150,7 +150,7 @@ export default function Anime({ relatedAnimes }: AnimeProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const { data: relatedAnimes } = await localApi.get('/getRelatedAnimes')   
+    const { data: relatedAnimes } = await localApi.get('api/getRelatedAnimes')   
 
     return {
       props: {
