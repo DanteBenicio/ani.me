@@ -10,6 +10,14 @@
 
 @layer components {
   #__next {
-    @apply bg-dark-300 min-h-screen px-8 scroll-smooth;
+    @apply bg-dark-300 min-h-screen px-4 scroll-smooth sm:px-8;
+  }
+
+  html::-webkit-scrollbar {
+    @apply w-[6px] bg-dark-200;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    @apply bg-blue rounded-2xl;
   }
 }
