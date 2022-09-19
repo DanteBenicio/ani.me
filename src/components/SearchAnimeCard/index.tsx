@@ -13,7 +13,7 @@ interface SearchAnimeCardProps {
 }
 
 export default function SearchAnimeCard({ createdAt, score, title, imgSrc, onClick, synopsis, genre, desktop }: SearchAnimeCardProps) {
-  const formattedCreatedAt = createdAt.split('-').filter(string => string.length === 4)
+  const formattedCreatedAt = createdAt?.split('-').filter(string => string.length === 4)
 
   return (
     <Link
