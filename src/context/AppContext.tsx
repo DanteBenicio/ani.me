@@ -1,5 +1,5 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
-import { api } from "../services/axios";
+import React, { createContext, useEffect, useState } from "react";
+import { localApi } from "../services/axios";
 
 interface ContextProps {
   recentAnimes: AnimeData[]
@@ -24,17 +24,15 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
   const [animes, setAnimes] = useState<AnimeData[]>([])
   const [trendingAnimes, setTrendingAnimes] = useState<AnimeData[]>([])
 
-
   useEffect(() => {
     (async () => {
-      const { data: animesData } = await api.get('/anime')
-      const { data: trendingAnimesData } = await api.get('/trending/anime')
+      const { data: animesData } = await localApi.get('/getAnimes')
+      const { data: trendingAnimesData } = await localApi.get('/getTrendingAnimes')
 
-      setAnimes(animesData.data)
-      setTrendingAnimes(trendingAnimesData.data.filter((_:unknown, index: number) => index < 4))
+      setAnimes(animesData)
+      setTrendingAnimes(trendingAnimesData.filter((_:unknown, index: number) => index < 4))
     })()
   }, [])
-
 
   return (
     <AppContext.Provider value={{ 
