@@ -2,9 +2,9 @@
 
 @layer components {
   .text-information {
-    @apply font-inter text-base text-gray;
+    @apply font-inter text-sm md:text-base text-gray;
   }
   .text-information span {
-    @apply font-rubik text-lg font-medium text-white-900;
+    @apply font-rubik text-base md:text-lg font-medium text-white-900;
   }
 }
