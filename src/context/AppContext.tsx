@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { localApi } from "../services/axios";
+import { kitsuApi, localApi } from "../services/axios";
 
 interface ContextProps {
   recentAnimes: AnimeData[]
@@ -26,11 +26,13 @@ export function AppContextProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     (async () => {
-      const { data: animesData } = await localApi.get('api/getAnimes')
-      const { data: trendingAnimesData } = await localApi.get('api/getTrendingAnimes')
+      const [animesData, trendingAnimesData] = await Promise.all([
+        await kitsuApi.get('/anime'),
+        await kitsuApi.get('/trending/anime')
+      ])
 
-      setAnimes(animesData)
-      setTrendingAnimes(trendingAnimesData.filter((_:unknown, index: number) => index < 4))
+      setAnimes(animesData.data.data)
+      setTrendingAnimes(trendingAnimesData.data.data.filter((_:unknown, index: number) => index < 4))
     })()
   }, [])
 
