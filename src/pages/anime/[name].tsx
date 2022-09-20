@@ -51,7 +51,7 @@ export default function Anime({ relatedAnimes }: AnimeProps) {
           </h2>
 
           <div className='relative max-h-[490px] w-full'>
-            <img src={anime?.attributes?.posterImage?.small || anime?.attributes?.coverImage?.small} alt="imagem do episodio" className="w-full object-cover h-[360px] smx:h-[400px] md:h-full" />
+            <img src={anime?.attributes?.posterImage?.small || anime?.attributes?.coverImage?.small} alt="imagem do episodio" className="w-full md:object-fill h-[360px] smx:max-h-[460px] md:h-full" />
             {anime && <PlayButton />}
           </div>
         </div>
