@@ -1,6 +1,7 @@
+import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../../context/AppContext'
-import { localApi } from '../../services/axios'
+import { kitsuApi, localApi } from '../../services/axios'
 import Card from '../Card'
 import Filter from '../Filter'
 import styles from './styles.module.css'
@@ -14,38 +15,31 @@ export default function HeroSection() {
   useEffect(() => {
     if (selectedFilter !== 'all') {
       (async () => {
-        const { data } = await localApi.get('api/getAnimes', {
-          params: {
-            animeName: selectedFilter
-          }
-        })
+        const { data: { data } } = await kitsuApi.get(`/anime?filter[text]=${selectedFilter}`)
 
         setAnimes(data)
         setAnimesCount(11)
       })()
     } else {
       (async () => {
-        const { data } = await localApi.get('api/getAnimes', {
-          params: {
-            animeName: selectedFilter
-          }
-        });
+        const { data: { data } } = await kitsuApi.get(`/anime`)
 
         setAnimes(data)
         setAnimesCount(11)
       })()
     }
   }, [selectedFilter])
+
+  useEffect(() => {
+    document.documentElement.addEventListener('resize', e => {
+      console.log(e)
+    })
+  }, [])
   
   async function handleShowMoreAnimes(filterText: string) {
     const filter = filterText === 'all' ? '' : `&filter[text]=${filterText}`
 
-    const { data } = await localApi.get('api/getMoreAnimes', {
-      params: {
-        animesCount,
-        filter
-      }
-    })
+    const { data: { data } } = await kitsuApi.get(`/anime?page[limit]=10&page[offset]=${animesCount}${filter}`)
 
     setAnimes(prevState => [...prevState, ...data])
     setAnimesCount(prevState => prevState + 10)
@@ -60,8 +54,15 @@ export default function HeroSection() {
         <h2 className='text-white-900 text-[1.4rem] smx:text-[1.5rem] sm:text-[2rem]'>Últimas Novidades</h2>
         <p className="text-gray font-inter text-base sm:text-2xl font-extralight">O que você vai assistir hoje?</p>
 
-        <div className={`${styles.banner} group overflow-hidden rounded-lg h-[160px] smx:h-auto`}>
-          <img src="/one-punch-man.png" className="object-cover h-[160px] smx:h-auto smx:object-cover group-hover:scale-110 transition-all duration-500 z-0"/>
+        <div className={`${styles.banner} group overflow-hidden rounded-lg h-[160px] smx:h-[300px]`}>
+          <Image 
+            src="/one-punch-man.png"
+            alt="homem olhando com o punho amostra"
+            className="object-cover group-hover:scale-110 transition-all duration-500 z-0"
+            objectFit='cover'
+            layout='fill'
+            priority
+          />
 
           <div className={styles['banner-information']}>
             <h2>ONE PUNCH MAN TERÁ 3º TEMPORADA</h2>

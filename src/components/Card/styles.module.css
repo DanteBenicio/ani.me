@@ -2,7 +2,7 @@
 
 @layer components {
   .shadow {
-    @apply relative bg-transparent rounded-xl overflow-hidden;
+    @apply relative bg-transparent rounded-xl overflow-hidden min-w-[160px] w-full h-[240px] max-w-[188px];
   }
 
   .shadow::before {

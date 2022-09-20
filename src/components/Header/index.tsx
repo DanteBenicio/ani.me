@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '../../assets/SearchIcon'
-import { localApi } from '../../services/axios'
+import { kitsuApi, localApi } from '../../services/axios'
 import Burger from '../Burger'
 import SearchAnimeCard from '../SearchAnimeCard'
 import styles from './styles.module.css'
@@ -28,12 +28,7 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
 
       (async () => {
         try {
-          const { data } = await localApi.get('api/getAnimes', {
-            params: {
-              animeName,
-              limit: 5
-            }
-          })
+          const { data: { data } } = await kitsuApi.get(`/anime?page[limit]=5&filter[text]=${animeName}`)
     
           setFindedAnimes(data)
         } catch (error) {

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -20,7 +21,9 @@ export default function SearchAnimeCard({ createdAt, score, title, imgSrc, onCli
       href={`/anime/${title}`}
     >
       <div className={`flex gap-2 w-full h-48 rounded-lg overflow-hidden cursor-pointer border-2 border-dark-200 ${desktop ? 'bg-dark-300' : ''} hover:backdrop-brightness-200 duration-300`} onClick={onClick}>
-        <img src={imgSrc} alt="" className='w-32 object-cover h-full rounded-lg' />
+        <div className="min-w-[128px] h-full relative">
+          <Image src={imgSrc} alt="imagem do anime" className='rounded-lg' objectFit='cover' layout='fill' priority/>
+        </div>
 
         <div className={`flex flex-col gap-4 justify-between p-2 ${desktop ? 'text-white-900' : ''}`}>
           <h3 className="text-base smx:text-xl font-medium">{title}</h3>

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -11,7 +12,7 @@ export default function MoreWatchedAnimeCard({ createdAt, imgSrc, title }: Props
   return (
     <Link href={`/anime/${title}`}>
       <article className="flex w-full cursor-pointer hover:scale-[1.02] transition-transform">
-        <img src={imgSrc} alt="" className="basis-[140px] max-h-[114px]"/>
+        <Image src={imgSrc} alt="imagem do anime" className="basis-[140px]" width={140} height={160} priority/>
 
         <div className="flex flex-col gap-2 w-full p-3 bg-dark-200 h-[100%]">
           <h3 className="text-white-900 font-rubik font-medium text-lg">{title}</h3>
