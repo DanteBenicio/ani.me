@@ -72,33 +72,33 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
               />
 
               {searchAnimeInput && (
-                <div className="absolute right-4 top-[20%] smx:top-[15%] rounded-full bg-white-100 p-1 group" onClick={clearSearchAnime}>
-                  <button className="relative flex flex-col items-center justify-center gap-2 w-4 h-4 smx:w-5 smx:h-5 p-1">
-                    <span className="absolute h-[1px] w-full top-[45%] rotate-45 bg-gray group-hover:bg-white-900 duration-300" />
-                    <span className="absolute h-[1px] w-full bottom-[50%] bg-gray group-hover:bg-white-900 rotate-[135deg] duration-300" />
-                  </button>
-                </div>
-              )}
+                <>
+                  <div data-testid="clean-btn" className="absolute right-4 top-[20%] smx:top-[15%] rounded-full bg-white-100 p-1 group" onClick={clearSearchAnime}>
+                    <button className="relative flex flex-col items-center justify-center gap-2 w-4 h-4 smx:w-5 smx:h-5 p-1">
+                      <span className="absolute h-[1px] w-full top-[45%] rotate-45 bg-gray group-hover:bg-white-900 duration-300" />
+                      <span className="absolute h-[1px] w-full bottom-[50%] bg-gray group-hover:bg-white-900 rotate-[135deg] duration-300" />
+                    </button>
+                  </div>
 
-              {searchAnimeInput && (
-                <div className='flex flex-col absolute z-50 mt-2 w-[400px] right-0 gap-2 bg-dark-300 shadow-2xl'>
-                  {findedAnimes?.map(anime => (
-                    <SearchAnimeCard
-                      desktop
-                      createdAt={anime?.attributes?.startDate}
-                      imgSrc={anime?.attributes?.posterImage?.small}
-                      score={anime?.attributes?.averageRating}
-                      title={anime?.attributes?.canonicalTitle}
-                      synopsis={anime?.attributes?.synopsis}
-                      genre={anime?.attributes?.ageRatingGuide}
-                      onClick={() => {
-                        setShowSearchInput(false);
-                        clearSearchAnime()
-                      }}
-                      key={anime?.id}
-                    />
-                  ))}
-                </div>
+                  <div data-testid="finded-animes" className='flex flex-col absolute z-50 mt-2 w-[400px] right-0 gap-2 bg-dark-300 shadow-2xl'>
+                    {findedAnimes?.map(anime => (
+                      <SearchAnimeCard
+                        desktop
+                        createdAt={anime?.attributes?.startDate}
+                        imgSrc={anime?.attributes?.posterImage?.small}
+                        score={anime?.attributes?.averageRating}
+                        title={anime?.attributes?.canonicalTitle}
+                        synopsis={anime?.attributes?.synopsis}
+                        genre={anime?.attributes?.ageRatingGuide}
+                        onClick={() => {
+                          setShowSearchInput(false);
+                          clearSearchAnime()
+                        }}
+                        key={anime?.id}
+                      />
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           </div>
