@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import SearchIcon from '../../assets/SearchIcon'
-import { kitsuApi, localApi } from '../../services/axios'
+import { kitsuApi } from '../../services/axios'
 import Burger from '../Burger'
 import SearchAnimeCard from '../SearchAnimeCard'
 import styles from './styles.module.css'
@@ -103,7 +103,7 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
             </div>
           </div>
 
-          <div onClick={handleToggleSearch} className={`md:hidden py-2 px-[6px] cursor-pointer hover:backdrop-brightness-200 transition-colors rounded-lg group ${showSearchInput ? 'backdrop-brightness-200' : ''}`}>
+          <div data-testid="btn-container" onClick={handleToggleSearch} className={`md:hidden py-2 px-[6px] cursor-pointer hover:backdrop-brightness-200 transition-colors rounded-lg group ${showSearchInput ? 'backdrop-brightness-200' : ''}`}>
             {showSearchInput ? (
               <button className="relative flex flex-col items-center justify-center gap-2 w-8 h-8 p-1">
                 <span className="absolute h-[2px] w-full top-[45%] rotate-45 bg-blue " />
@@ -134,7 +134,7 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
             />
 
             {searchAnimeInput && (
-              <div className="absolute right-4 top-[20%] smx:top-[15%] rounded-full bg-white-100 p-1 group" onClick={clearSearchAnime}>
+              <div data-testid="clear-search-anime" className="absolute right-4 top-[20%] smx:top-[15%] rounded-full bg-white-100 p-1 group" onClick={clearSearchAnime}>
                 <button className="relative flex flex-col items-center justify-center gap-2 w-4 h-4 smx:w-5 smx:h-5 p-1">
                   <span className="absolute h-[1px] w-full top-[45%] rotate-45 bg-gray group-hover:bg-white-900 duration-300" />
                   <span className="absolute h-[1px] w-full bottom-[50%] bg-gray group-hover:bg-white-900 rotate-[135deg] duration-300" />
@@ -161,7 +161,7 @@ export default function Header({ handleToggleMenu, showSidebarMenu }: HeaderProp
             ))}
             
             {searchAnimeInput && findedAnimes?.length === 0 && (
-              <div className='flex justify-center items-center flex-col w-full bg-slate-800 text-white-900 rounded-lg p-4'>
+              <div data-testid="not-found-anime" className='flex justify-center items-center flex-col w-full bg-slate-800 text-white-900 rounded-lg p-4'>
                 <img src="/not-found.svg" alt="" className="max-w-[250px]" />
                 <h3 className='text-[1.2rem] smx:text-[1.4rem] sm:text-[1.8rem]'>Anime não encontrado.</h3>
               </div>
