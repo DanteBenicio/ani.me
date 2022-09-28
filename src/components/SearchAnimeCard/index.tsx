@@ -6,7 +6,7 @@ interface SearchAnimeCardProps {
   title: string
   score: string
   imgSrc: string
-  createdAt: string
+  createdAt?: string
   synopsis: string
   genre: string
   desktop?: boolean
