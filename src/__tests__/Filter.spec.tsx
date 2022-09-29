@@ -28,6 +28,20 @@ describe("Filter component", () => {
     expect(firstButton).toHaveClass('active')
   })
 
+  it("should call the handleSelectButton fn", () => {
+    const handleSelectButton = jest.fn()
+    const { container } = render(<Filter setSelectedFilter={() => {}} />)
+
+    const elements = Array.from(container.firstElementChild?.children!)
+    const firstButton = elements[0]
+
+    firstButton.addEventListener('click', handleSelectButton)
+
+    fireEvent.click(firstButton)
+
+    expect(handleSelectButton).toHaveBeenCalled()
+  })
+
   it('should have remove class if the clicked button already has active class', async () => {
     const { container } = render(<Filter setSelectedFilter={() => {}} />)
 
